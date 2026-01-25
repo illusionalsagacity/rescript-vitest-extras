@@ -8,7 +8,7 @@ export default defineConfig({
       ? ["default", "github-actions"]
       : ["default"],
     coverage: {
-      exclude: ["*.res", "*.resi", "lib/**", "vitest.config.ts"],
+      exclude: ["*.res", "*.resi", "lib/**", "vitest.config.mjs"],
     },
   },
 });
