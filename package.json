@@ -1,0 +1,22 @@
+{
+  "name": "rescript-vitest-extras",
+  "version": "0.0.0",
+  "packageManager": "yarn@4.12.0",
+  "scripts": {
+    "res:build": "rescript build",
+    "res:clean": "rescript clean",
+    "res:watch": "rescript watch",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.8",
+    "@vitest/coverage-v8": "^3.2.4",
+    "rescript": "^12.1.0",
+    "rescript-vitest": "^2.1.1",
+    "vitest": "^3.2.4"
+  },
+  "peerDependencies": {
+    "rescript-vitest": "^2.1.1",
+    "vitest": "^3.0.0"
+  }
+}
