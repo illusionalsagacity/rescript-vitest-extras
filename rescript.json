@@ -10,11 +10,25 @@
       "dir": "__tests__",
       "type": "dev",
       "subdirs": true
+    },
+    {
+      "dir": "examples",
+      "type": "dev",
+      "subdirs": true
+    },
+    {
+      "dir": "__browser_tests__",
+      "type": "dev",
+      "subdirs": true
     }
   ],
   "package-specs": {
     "module": "esmodule",
     "suffix": ".res.mjs",
     "in-source": true
+  },
+  "jsx": {
+    "version": 4,
+    "mode": "automatic"
   }
 }
