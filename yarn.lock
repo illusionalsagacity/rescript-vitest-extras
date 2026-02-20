@@ -685,6 +685,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rescript/react@npm:^0.14.1":
+  version: 0.14.1
+  resolution: "@rescript/react@npm:0.14.1"
+  peerDependencies:
+    react: ">=19.1.0"
+    react-dom: ">=19.1.0"
+  checksum: 10c0/3a0b35547c3ea0061d04b40f0325a9aa8fb63d1cdb244f5a6c584eeceb1e8ef2ec70242b3d0bac6329587b2f7835b755ebd5a1f5e0bbeb4cf30ba55345f5ceb9
+  languageName: node
+  linkType: hard
+
 "@rescript/runtime@npm:12.1.0":
   version: 12.1.0
   resolution: "@rescript/runtime@npm:12.1.0"
@@ -2352,6 +2362,7 @@ __metadata:
   resolution: "rescript-vitest-extras@workspace:."
   dependencies:
     "@changesets/cli": "npm:^2.29.8"
+    "@rescript/react": "npm:^0.14.1"
     "@vitest/coverage-v8": "npm:^3.2.4"
     rescript: "npm:^12.1.0"
     rescript-vitest: "npm:^2.1.1"

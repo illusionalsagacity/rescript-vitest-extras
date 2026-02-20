@@ -1,6 +1,6 @@
 {
   "name": "rescript-vitest-extras",
-  "dependencies": ["rescript-vitest"],
+  "dependencies": ["rescript-vitest", "@rescript/react"],
   "sources": [
     {
       "dir": "src",
