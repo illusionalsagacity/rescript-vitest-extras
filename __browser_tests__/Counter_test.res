@@ -2,62 +2,68 @@
  * Counter browser tests — Exercise click interactions, button queries,
  * and text content assertions using the VitestBrowser* bindings.
  */
-
 open Vitest
 
 describe("Counter", () => {
   testAsync("displays initial count of 0", async _ => {
-    let screen = await VitestBrowserReact.render(<Counter.Counter />)
-    let countText = screen->VitestBrowserReact.getByText(
-      VitestBrowserLocator.String("Count: 0"),
-    )
-    await VitestBrowserExpect.element(countText)->VitestBrowserExpect.toBeInTheDocument
+    let screen = await VitestExtras.BrowserReact.render(<Counter.Counter />)
+    let countText =
+      screen->VitestExtras.BrowserReact.getByText(VitestExtras.BrowserLocator.String("Count: 0"))
+    await VitestExtras.BrowserExpect.element(
+      countText,
+    )->VitestExtras.BrowserExpect.toBeInTheDocument
   })
 
   testAsync("increments on Increment button click", async _ => {
-    let screen = await VitestBrowserReact.render(<Counter.Counter />)
+    let screen = await VitestExtras.BrowserReact.render(<Counter.Counter />)
 
-    let incrementBtn = screen->VitestBrowserReact.getByRole(
-      "button",
-      ~options={name: VitestBrowserLocator.String("Increment")},
-    )
-    await VitestBrowserUserEvent.click(incrementBtn)
+    let incrementBtn =
+      screen->VitestExtras.BrowserReact.getByRole(
+        "button",
+        ~options={name: VitestExtras.BrowserLocator.String("Increment")},
+      )
+    await VitestExtras.BrowserUserEvent.click(incrementBtn)
 
-    let countText = screen->VitestBrowserReact.getByText(
-      VitestBrowserLocator.String("Count: 1"),
-    )
-    await VitestBrowserExpect.element(countText)->VitestBrowserExpect.toBeInTheDocument
+    let countText =
+      screen->VitestExtras.BrowserReact.getByText(VitestExtras.BrowserLocator.String("Count: 1"))
+    await VitestExtras.BrowserExpect.element(
+      countText,
+    )->VitestExtras.BrowserExpect.toBeInTheDocument
   })
 
   testAsync("decrements on Decrement button click", async _ => {
-    let screen = await VitestBrowserReact.render(<Counter.Counter />)
+    let screen = await VitestExtras.BrowserReact.render(<Counter.Counter />)
 
-    let decrementBtn = screen->VitestBrowserReact.getByRole(
-      "button",
-      ~options={name: VitestBrowserLocator.String("Decrement")},
-    )
-    await VitestBrowserUserEvent.click(decrementBtn)
+    let decrementBtn =
+      screen->VitestExtras.BrowserReact.getByRole(
+        "button",
+        ~options={name: VitestExtras.BrowserLocator.String("Decrement")},
+      )
+    await VitestExtras.BrowserUserEvent.click(decrementBtn)
 
-    let countText = screen->VitestBrowserReact.getByText(
-      VitestBrowserLocator.String("Count: -1"),
-    )
-    await VitestBrowserExpect.element(countText)->VitestBrowserExpect.toBeInTheDocument
+    let countText =
+      screen->VitestExtras.BrowserReact.getByText(VitestExtras.BrowserLocator.String("Count: -1"))
+    await VitestExtras.BrowserExpect.element(
+      countText,
+    )->VitestExtras.BrowserExpect.toBeInTheDocument
   })
 
   testAsync("increments multiple times", async _ => {
-    let screen = await VitestBrowserReact.render(<Counter.Counter />)
+    let screen = await VitestExtras.BrowserReact.render(<Counter.Counter />)
 
-    let incrementBtn = screen->VitestBrowserReact.getByRole(
-      "button",
-      ~options={name: VitestBrowserLocator.String("Increment")},
-    )
-    await VitestBrowserUserEvent.click(incrementBtn)
-    await VitestBrowserUserEvent.click(incrementBtn)
-    await VitestBrowserUserEvent.click(incrementBtn)
+    let incrementBtn =
+      screen->VitestExtras.BrowserReact.getByRole(
+        "button",
+        ~options={name: VitestExtras.BrowserLocator.String("Increment")},
+      )
+    await VitestExtras.BrowserUserEvent.click(incrementBtn)
+    await VitestExtras.BrowserUserEvent.click(incrementBtn)
+    await VitestExtras.BrowserUserEvent.click(incrementBtn)
 
-    let countText = screen->VitestBrowserReact.getByText(
-      VitestBrowserLocator.String("Count: 3"),
-    )
-    await VitestBrowserExpect.element(countText)->VitestBrowserExpect.toBeInTheDocument
+    let countText =
+      screen->VitestExtras.BrowserReact.getByText(VitestExtras.BrowserLocator.String("Count: 3"))
+    await VitestExtras.BrowserExpect.element(
+      countText,
+    )->VitestExtras.BrowserExpect.toBeInTheDocument
   })
 })

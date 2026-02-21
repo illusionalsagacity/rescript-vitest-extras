@@ -226,7 +226,7 @@ module MockFn0: {
   let mockRejectedValueOnce: (mockFn0<promise<'ret>>, unknown) => mockFn0<promise<'ret>>
 
   /** Convert to a callable function */
-  let toFunction: mockFn0<'ret> => (unit => 'ret)
+  let toFunction: mockFn0<'ret> => unit => 'ret
 }
 
 // =============================================================================
@@ -250,7 +250,7 @@ module MockFn1: {
   let mockResolvedValueOnce: (mockFn1<'a, promise<'ret>>, 'ret) => mockFn1<'a, promise<'ret>>
   let mockRejectedValue: (mockFn1<'a, promise<'ret>>, unknown) => mockFn1<'a, promise<'ret>>
   let mockRejectedValueOnce: (mockFn1<'a, promise<'ret>>, unknown) => mockFn1<'a, promise<'ret>>
-  let toFunction: mockFn1<'a, 'ret> => ('a => 'ret)
+  let toFunction: mockFn1<'a, 'ret> => 'a => 'ret
 }
 
 // =============================================================================
@@ -275,15 +275,12 @@ module MockFn2: {
     mockFn2<'a, 'b, promise<'ret>>,
     'ret,
   ) => mockFn2<'a, 'b, promise<'ret>>
-  let mockRejectedValue: (
-    mockFn2<'a, 'b, promise<'ret>>,
-    unknown,
-  ) => mockFn2<'a, 'b, promise<'ret>>
+  let mockRejectedValue: (mockFn2<'a, 'b, promise<'ret>>, unknown) => mockFn2<'a, 'b, promise<'ret>>
   let mockRejectedValueOnce: (
     mockFn2<'a, 'b, promise<'ret>>,
     unknown,
   ) => mockFn2<'a, 'b, promise<'ret>>
-  let toFunction: mockFn2<'a, 'b, 'ret> => (('a, 'b) => 'ret)
+  let toFunction: mockFn2<'a, 'b, 'ret> => ('a, 'b) => 'ret
 }
 
 // =============================================================================
@@ -325,7 +322,7 @@ module MockFn3: {
     mockFn3<'a, 'b, 'c, promise<'ret>>,
     unknown,
   ) => mockFn3<'a, 'b, 'c, promise<'ret>>
-  let toFunction: mockFn3<'a, 'b, 'c, 'ret> => (('a, 'b, 'c) => 'ret)
+  let toFunction: mockFn3<'a, 'b, 'c, 'ret> => ('a, 'b, 'c) => 'ret
 }
 
 // =============================================================================
@@ -367,7 +364,7 @@ module MockFn4: {
     mockFn4<'a, 'b, 'c, 'd, promise<'ret>>,
     unknown,
   ) => mockFn4<'a, 'b, 'c, 'd, promise<'ret>>
-  let toFunction: mockFn4<'a, 'b, 'c, 'd, 'ret> => (('a, 'b, 'c, 'd) => 'ret)
+  let toFunction: mockFn4<'a, 'b, 'c, 'd, 'ret> => ('a, 'b, 'c, 'd) => 'ret
 }
 
 // =============================================================================
@@ -417,7 +414,7 @@ module MockFn5: {
     mockFn5<'a, 'b, 'c, 'd, 'e, promise<'ret>>,
     unknown,
   ) => mockFn5<'a, 'b, 'c, 'd, 'e, promise<'ret>>
-  let toFunction: mockFn5<'a, 'b, 'c, 'd, 'e, 'ret> => (('a, 'b, 'c, 'd, 'e) => 'ret)
+  let toFunction: mockFn5<'a, 'b, 'c, 'd, 'e, 'ret> => ('a, 'b, 'c, 'd, 'e) => 'ret
 }
 
 // =============================================================================

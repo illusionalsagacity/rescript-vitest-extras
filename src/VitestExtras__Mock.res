@@ -175,7 +175,8 @@ external fnWithImpl3: (Vitest.Vi.t, ('a, 'b, 'c) => 'ret) => mockFn3<'a, 'b, 'c,
 
 /** Create a mock function with an implementation: ('a, 'b, 'c, 'd) => 'ret */
 @send
-external fnWithImpl4: (Vitest.Vi.t, ('a, 'b, 'c, 'd) => 'ret) => mockFn4<'a, 'b, 'c, 'd, 'ret> = "fn"
+external fnWithImpl4: (Vitest.Vi.t, ('a, 'b, 'c, 'd) => 'ret) => mockFn4<'a, 'b, 'c, 'd, 'ret> =
+  "fn"
 
 /** Create a mock function with 5 arguments.
     Note: When called without implementation, will return undefined at runtime. */
@@ -270,7 +271,7 @@ module MockFn0 = {
     "mockRejectedValueOnce"
 
   /** Convert to a callable function */
-  external toFunction: mockFn0<'ret> => (unit => 'ret) = "%identity"
+  external toFunction: mockFn0<'ret> => unit => 'ret = "%identity"
 }
 
 // =============================================================================
@@ -306,22 +307,16 @@ module MockFn1 = {
     "mockReturnValueOnce"
 
   @send
-  external mockResolvedValue: (
-    mockFn1<'a, promise<'ret>>,
-    'ret,
-  ) => mockFn1<'a, promise<'ret>> = "mockResolvedValue"
+  external mockResolvedValue: (mockFn1<'a, promise<'ret>>, 'ret) => mockFn1<'a, promise<'ret>> =
+    "mockResolvedValue"
 
   @send
-  external mockResolvedValueOnce: (
-    mockFn1<'a, promise<'ret>>,
-    'ret,
-  ) => mockFn1<'a, promise<'ret>> = "mockResolvedValueOnce"
+  external mockResolvedValueOnce: (mockFn1<'a, promise<'ret>>, 'ret) => mockFn1<'a, promise<'ret>> =
+    "mockResolvedValueOnce"
 
   @send
-  external mockRejectedValue: (
-    mockFn1<'a, promise<'ret>>,
-    unknown,
-  ) => mockFn1<'a, promise<'ret>> = "mockRejectedValue"
+  external mockRejectedValue: (mockFn1<'a, promise<'ret>>, unknown) => mockFn1<'a, promise<'ret>> =
+    "mockRejectedValue"
 
   @send
   external mockRejectedValueOnce: (
@@ -329,7 +324,7 @@ module MockFn1 = {
     unknown,
   ) => mockFn1<'a, promise<'ret>> = "mockRejectedValueOnce"
 
-  external toFunction: mockFn1<'a, 'ret> => ('a => 'ret) = "%identity"
+  external toFunction: mockFn1<'a, 'ret> => 'a => 'ret = "%identity"
 }
 
 // =============================================================================
@@ -350,10 +345,8 @@ module MockFn2 = {
     "getMockImplementation"
 
   @send
-  external mockImplementation: (
-    mockFn2<'a, 'b, 'ret>,
-    ('a, 'b) => 'ret,
-  ) => mockFn2<'a, 'b, 'ret> = "mockImplementation"
+  external mockImplementation: (mockFn2<'a, 'b, 'ret>, ('a, 'b) => 'ret) => mockFn2<'a, 'b, 'ret> =
+    "mockImplementation"
 
   @send
   external mockImplementationOnce: (
@@ -396,7 +389,7 @@ module MockFn2 = {
     unknown,
   ) => mockFn2<'a, 'b, promise<'ret>> = "mockRejectedValueOnce"
 
-  external toFunction: mockFn2<'a, 'b, 'ret> => (('a, 'b) => 'ret) = "%identity"
+  external toFunction: mockFn2<'a, 'b, 'ret> => ('a, 'b) => 'ret = "%identity"
 }
 
 // =============================================================================
@@ -465,7 +458,7 @@ module MockFn3 = {
     unknown,
   ) => mockFn3<'a, 'b, 'c, promise<'ret>> = "mockRejectedValueOnce"
 
-  external toFunction: mockFn3<'a, 'b, 'c, 'ret> => (('a, 'b, 'c) => 'ret) = "%identity"
+  external toFunction: mockFn3<'a, 'b, 'c, 'ret> => ('a, 'b, 'c) => 'ret = "%identity"
 }
 
 // =============================================================================
@@ -477,10 +470,8 @@ module MockFn4 = {
   external mock: mockFn4<'a, 'b, 'c, 'd, 'ret> => mockContext4<'a, 'b, 'c, 'd, 'ret> = "mock"
   @send external getMockName: mockFn4<'a, 'b, 'c, 'd, 'ret> => string = "getMockName"
   @send
-  external mockName: (
-    mockFn4<'a, 'b, 'c, 'd, 'ret>,
-    string,
-  ) => mockFn4<'a, 'b, 'c, 'd, 'ret> = "mockName"
+  external mockName: (mockFn4<'a, 'b, 'c, 'd, 'ret>, string) => mockFn4<'a, 'b, 'c, 'd, 'ret> =
+    "mockName"
   @send
   external mockClear: mockFn4<'a, 'b, 'c, 'd, 'ret> => mockFn4<'a, 'b, 'c, 'd, 'ret> = "mockClear"
   @send
@@ -509,10 +500,8 @@ module MockFn4 = {
     "mockReturnThis"
 
   @send
-  external mockReturnValue: (
-    mockFn4<'a, 'b, 'c, 'd, 'ret>,
-    'ret,
-  ) => mockFn4<'a, 'b, 'c, 'd, 'ret> = "mockReturnValue"
+  external mockReturnValue: (mockFn4<'a, 'b, 'c, 'd, 'ret>, 'ret) => mockFn4<'a, 'b, 'c, 'd, 'ret> =
+    "mockReturnValue"
 
   @send
   external mockReturnValueOnce: (
@@ -544,7 +533,7 @@ module MockFn4 = {
     unknown,
   ) => mockFn4<'a, 'b, 'c, 'd, promise<'ret>> = "mockRejectedValueOnce"
 
-  external toFunction: mockFn4<'a, 'b, 'c, 'd, 'ret> => (('a, 'b, 'c, 'd) => 'ret) = "%identity"
+  external toFunction: mockFn4<'a, 'b, 'c, 'd, 'ret> => ('a, 'b, 'c, 'd) => 'ret = "%identity"
 }
 
 // =============================================================================
@@ -626,7 +615,7 @@ module MockFn5 = {
     unknown,
   ) => mockFn5<'a, 'b, 'c, 'd, 'e, promise<'ret>> = "mockRejectedValueOnce"
 
-  external toFunction: mockFn5<'a, 'b, 'c, 'd, 'e, 'ret> => (('a, 'b, 'c, 'd, 'e) => 'ret) =
+  external toFunction: mockFn5<'a, 'b, 'c, 'd, 'e, 'ret> => ('a, 'b, 'c, 'd, 'e) => 'ret =
     "%identity"
 }
 

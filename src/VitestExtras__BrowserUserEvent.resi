@@ -7,7 +7,6 @@
  *
  * For an independent instance, call `setup()` to obtain a fresh `t`.
  */
-
 /** Opaque type for a UserEvent instance from `vitest/browser`. */
 type t
 
@@ -23,13 +22,13 @@ let setup: unit => t
 // =============================================================================
 
 /** Clicks the given element. */
-let click: (~options: {..}=?, VitestBrowserLocator.t) => promise<unit>
+let click: (~options: {..}=?, VitestExtras__BrowserLocator.t) => promise<unit>
 
 /** Double-clicks the given element. */
-let dblClick: (~options: {..}=?, VitestBrowserLocator.t) => promise<unit>
+let dblClick: (~options: {..}=?, VitestExtras__BrowserLocator.t) => promise<unit>
 
 /** Triple-clicks the given element. */
-let tripleClick: (~options: {..}=?, VitestBrowserLocator.t) => promise<unit>
+let tripleClick: (~options: {..}=?, VitestExtras__BrowserLocator.t) => promise<unit>
 
 // =============================================================================
 // Input Operations
@@ -37,14 +36,14 @@ let tripleClick: (~options: {..}=?, VitestBrowserLocator.t) => promise<unit>
 
 /** Sets the value of an input element. Unlike `type_`, this does not simulate
     individual keystrokes and has no options parameter. */
-let fill: (VitestBrowserLocator.t, string) => promise<unit>
+let fill: (VitestExtras__BrowserLocator.t, string) => promise<unit>
 
 /** Types text into the given element character by character, simulating real keyboard input.
     Named `type_` because `type` is a reserved word in ReScript. */
-let type_: (~options: {..}=?, VitestBrowserLocator.t, string) => promise<unit>
+let type_: (~options: {..}=?, VitestExtras__BrowserLocator.t, string) => promise<unit>
 
 /** Clears the value of the given input element. */
-let clear: (~options: {..}=?, VitestBrowserLocator.t) => promise<unit>
+let clear: (~options: {..}=?, VitestExtras__BrowserLocator.t) => promise<unit>
 
 // =============================================================================
 // Keyboard
@@ -63,10 +62,10 @@ let tab: (~options: {..}=?) => promise<unit>
 // =============================================================================
 
 /** Hovers over the given element. */
-let hover: (~options: {..}=?, VitestBrowserLocator.t) => promise<unit>
+let hover: (~options: {..}=?, VitestExtras__BrowserLocator.t) => promise<unit>
 
 /** Moves the pointer away from the given element. */
-let unhover: (~options: {..}=?, VitestBrowserLocator.t) => promise<unit>
+let unhover: (~options: {..}=?, VitestExtras__BrowserLocator.t) => promise<unit>
 
 // =============================================================================
 // Selection
@@ -75,7 +74,7 @@ let unhover: (~options: {..}=?, VitestBrowserLocator.t) => promise<unit>
 /** Selects the given option(s) in a `<select>` element. The `values` parameter is
     intentionally polymorphic to support `string`, `array<string>`, `Locator`,
     `array<Locator>`, `Dom.element`, or `array<Dom.element>`. */
-let selectOptions: (~options: {..}=?, VitestBrowserLocator.t, 'a) => promise<unit>
+let selectOptions: (~options: {..}=?, VitestExtras__BrowserLocator.t, 'a) => promise<unit>
 
 // =============================================================================
 // File Upload
@@ -83,7 +82,7 @@ let selectOptions: (~options: {..}=?, VitestBrowserLocator.t, 'a) => promise<uni
 
 /** Uploads file(s) to an input element. The `files` parameter is intentionally
     polymorphic to support `string`, `array<string>`, `File`, or `array<File>`. */
-let upload: (~options: {..}=?, VitestBrowserLocator.t, 'a) => promise<unit>
+let upload: (~options: {..}=?, VitestExtras__BrowserLocator.t, 'a) => promise<unit>
 
 // =============================================================================
 // Drag and Drop
@@ -92,8 +91,8 @@ let upload: (~options: {..}=?, VitestBrowserLocator.t, 'a) => promise<unit>
 /** Drags the source element and drops it onto the target element. */
 let dragAndDrop: (
   ~options: {..}=?,
-  VitestBrowserLocator.t,
-  VitestBrowserLocator.t,
+  VitestExtras__BrowserLocator.t,
+  VitestExtras__BrowserLocator.t,
 ) => promise<unit>
 
 // =============================================================================

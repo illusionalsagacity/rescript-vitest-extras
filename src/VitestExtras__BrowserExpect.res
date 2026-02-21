@@ -1,3 +1,7 @@
+// =============================================================================
+// Core Type and Entry Point
+// =============================================================================
+
 /**
  * Vitest Browser DOM Assertion API bindings.
  *
@@ -5,11 +9,6 @@
  * `@vitest/browser`. All matchers return `promise<unit>` because `expect.element()`
  * wraps `expect.poll()`, which retries assertions until they pass or timeout.
  */
-
-// =============================================================================
-// Core Type and Entry Point
-// =============================================================================
-
 /** The assertion type returned by `expect.element()`. All matchers return `promise<unit>`. */
 type t
 
@@ -22,7 +21,7 @@ type expectPollOptions = {
 
 /** Creates a DOM element assertion from a Locator. Automatically retries until passing or timeout. */
 @module("vitest") @scope("expect")
-external element: (VitestBrowserLocator.t, ~options: expectPollOptions=?) => t = "element"
+external element: (VitestExtras__BrowserLocator.t, ~options: expectPollOptions=?) => t = "element"
 
 /** Negates the following assertion. */
 @get external not: t => t = "not"
@@ -81,12 +80,12 @@ external toBeEmptyDOMElement: t => promise<unit> = "toBeEmptyDOMElement"
 
 /** Asserts that the element has the expected text content. Accepts a string or RegExp. */
 @send
-external toHaveTextContent: (t, VitestBrowserLocator.stringOrRegExp) => promise<unit> =
+external toHaveTextContent: (t, VitestExtras__BrowserLocator.stringOrRegExp) => promise<unit> =
   "toHaveTextContent"
 
 /** Asserts that the element contains the given element as a descendant. Accepts a Locator. */
 @send
-external toContainElement: (t, VitestBrowserLocator.t) => promise<unit> = "toContainElement"
+external toContainElement: (t, VitestExtras__BrowserLocator.t) => promise<unit> = "toContainElement"
 
 /** Asserts that the element contains the given HTML string in its `innerHTML`. */
 @send
@@ -94,21 +93,23 @@ external toContainHTML: (t, string) => promise<unit> = "toContainHTML"
 
 /** Asserts that the element has the expected accessible name. */
 @send
-external toHaveAccessibleName: (t, ~name: VitestBrowserLocator.stringOrRegExp=?) => promise<unit> =
-  "toHaveAccessibleName"
+external toHaveAccessibleName: (
+  t,
+  ~name: VitestExtras__BrowserLocator.stringOrRegExp=?,
+) => promise<unit> = "toHaveAccessibleName"
 
 /** Asserts that the element has the expected accessible description. */
 @send
 external toHaveAccessibleDescription: (
   t,
-  ~description: VitestBrowserLocator.stringOrRegExp=?,
+  ~description: VitestExtras__BrowserLocator.stringOrRegExp=?,
 ) => promise<unit> = "toHaveAccessibleDescription"
 
 /** Asserts that the element has the expected accessible error message. */
 @send
 external toHaveAccessibleErrorMessage: (
   t,
-  ~message: VitestBrowserLocator.stringOrRegExp=?,
+  ~message: VitestExtras__BrowserLocator.stringOrRegExp=?,
 ) => promise<unit> = "toHaveAccessibleErrorMessage"
 
 // =============================================================================
@@ -129,7 +130,7 @@ external toHaveStyle: (t, string) => promise<unit> = "toHaveStyle"
 
 /** Asserts that the element has the given ARIA role. */
 @send
-external toHaveRole: (t, VitestBrowserLocator.ariaRole) => promise<unit> = "toHaveRole"
+external toHaveRole: (t, VitestExtras__BrowserLocator.ariaRole) => promise<unit> = "toHaveRole"
 
 // =============================================================================
 // Form Matchers

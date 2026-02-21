@@ -1,4 +1,4 @@
-// VitestMockExpect.res - Expect matchers for mock functions
+// VitestExtras__MockExpect.res - Expect matchers for mock functions
 //
 // These matchers work with Vitest's expect() function for asserting on mock behavior.
 // Provides arity-specific variants for type-safe argument checking.
@@ -29,22 +29,26 @@ open Vitest_Types
 // =============================================================================
 
 /** Asserts the mock was called with no arguments */
-@send external toHaveBeenCalledWith0: assertion<VitestMock.mockFn0<'ret>> => unit = "toHaveBeenCalledWith"
+@send external toHaveBeenCalledWith0: assertion<VitestExtras__Mock.mockFn0<'ret>> => unit =
+  "toHaveBeenCalledWith"
 
 /** Asserts the mock was called with 1 argument */
 @send
-external toHaveBeenCalledWith1: (assertion<VitestMock.mockFn1<'a, 'ret>>, 'a) => unit =
+external toHaveBeenCalledWith1: (assertion<VitestExtras__Mock.mockFn1<'a, 'ret>>, 'a) => unit =
   "toHaveBeenCalledWith"
 
 /** Asserts the mock was called with 2 arguments */
 @send
-external toHaveBeenCalledWith2: (assertion<VitestMock.mockFn2<'a, 'b, 'ret>>, 'a, 'b) => unit =
-  "toHaveBeenCalledWith"
+external toHaveBeenCalledWith2: (
+  assertion<VitestExtras__Mock.mockFn2<'a, 'b, 'ret>>,
+  'a,
+  'b,
+) => unit = "toHaveBeenCalledWith"
 
 /** Asserts the mock was called with 3 arguments */
 @send
 external toHaveBeenCalledWith3: (
-  assertion<VitestMock.mockFn3<'a, 'b, 'c, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn3<'a, 'b, 'c, 'ret>>,
   'a,
   'b,
   'c,
@@ -53,7 +57,7 @@ external toHaveBeenCalledWith3: (
 /** Asserts the mock was called with 4 arguments */
 @send
 external toHaveBeenCalledWith4: (
-  assertion<VitestMock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
   'a,
   'b,
   'c,
@@ -63,7 +67,7 @@ external toHaveBeenCalledWith4: (
 /** Asserts the mock was called with 5 arguments */
 @send
 external toHaveBeenCalledWith5: (
-  assertion<VitestMock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
   'a,
   'b,
   'c,
@@ -72,22 +76,28 @@ external toHaveBeenCalledWith5: (
 ) => unit = "toHaveBeenCalledWith"
 
 // Aliases
-@send external toBeCalledWith0: assertion<VitestMock.mockFn0<'ret>> => unit = "toBeCalledWith"
+@send
+external toBeCalledWith0: assertion<VitestExtras__Mock.mockFn0<'ret>> => unit = "toBeCalledWith"
 
 @send
-external toBeCalledWith1: (assertion<VitestMock.mockFn1<'a, 'ret>>, 'a) => unit = "toBeCalledWith"
-
-@send
-external toBeCalledWith2: (assertion<VitestMock.mockFn2<'a, 'b, 'ret>>, 'a, 'b) => unit =
+external toBeCalledWith1: (assertion<VitestExtras__Mock.mockFn1<'a, 'ret>>, 'a) => unit =
   "toBeCalledWith"
 
 @send
-external toBeCalledWith3: (assertion<VitestMock.mockFn3<'a, 'b, 'c, 'ret>>, 'a, 'b, 'c) => unit =
+external toBeCalledWith2: (assertion<VitestExtras__Mock.mockFn2<'a, 'b, 'ret>>, 'a, 'b) => unit =
   "toBeCalledWith"
+
+@send
+external toBeCalledWith3: (
+  assertion<VitestExtras__Mock.mockFn3<'a, 'b, 'c, 'ret>>,
+  'a,
+  'b,
+  'c,
+) => unit = "toBeCalledWith"
 
 @send
 external toBeCalledWith4: (
-  assertion<VitestMock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
   'a,
   'b,
   'c,
@@ -96,7 +106,7 @@ external toBeCalledWith4: (
 
 @send
 external toBeCalledWith5: (
-  assertion<VitestMock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
   'a,
   'b,
   'c,
@@ -110,20 +120,20 @@ external toBeCalledWith5: (
 
 /** Asserts the mock was called exactly once with no arguments */
 @send
-external toHaveBeenCalledExactlyOnceWith0: assertion<VitestMock.mockFn0<'ret>> => unit =
+external toHaveBeenCalledExactlyOnceWith0: assertion<VitestExtras__Mock.mockFn0<'ret>> => unit =
   "toHaveBeenCalledExactlyOnceWith"
 
 /** Asserts the mock was called exactly once with 1 argument */
 @send
 external toHaveBeenCalledExactlyOnceWith1: (
-  assertion<VitestMock.mockFn1<'a, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn1<'a, 'ret>>,
   'a,
 ) => unit = "toHaveBeenCalledExactlyOnceWith"
 
 /** Asserts the mock was called exactly once with 2 arguments */
 @send
 external toHaveBeenCalledExactlyOnceWith2: (
-  assertion<VitestMock.mockFn2<'a, 'b, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn2<'a, 'b, 'ret>>,
   'a,
   'b,
 ) => unit = "toHaveBeenCalledExactlyOnceWith"
@@ -131,7 +141,7 @@ external toHaveBeenCalledExactlyOnceWith2: (
 /** Asserts the mock was called exactly once with 3 arguments */
 @send
 external toHaveBeenCalledExactlyOnceWith3: (
-  assertion<VitestMock.mockFn3<'a, 'b, 'c, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn3<'a, 'b, 'c, 'ret>>,
   'a,
   'b,
   'c,
@@ -140,7 +150,7 @@ external toHaveBeenCalledExactlyOnceWith3: (
 /** Asserts the mock was called exactly once with 4 arguments */
 @send
 external toHaveBeenCalledExactlyOnceWith4: (
-  assertion<VitestMock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
   'a,
   'b,
   'c,
@@ -150,7 +160,7 @@ external toHaveBeenCalledExactlyOnceWith4: (
 /** Asserts the mock was called exactly once with 5 arguments */
 @send
 external toHaveBeenCalledExactlyOnceWith5: (
-  assertion<VitestMock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
   'a,
   'b,
   'c,
@@ -164,18 +174,18 @@ external toHaveBeenCalledExactlyOnceWith5: (
 
 /** Asserts the mock's last call had no arguments */
 @send
-external toHaveBeenLastCalledWith0: assertion<VitestMock.mockFn0<'ret>> => unit =
+external toHaveBeenLastCalledWith0: assertion<VitestExtras__Mock.mockFn0<'ret>> => unit =
   "toHaveBeenLastCalledWith"
 
 /** Asserts the mock's last call had 1 argument */
 @send
-external toHaveBeenLastCalledWith1: (assertion<VitestMock.mockFn1<'a, 'ret>>, 'a) => unit =
+external toHaveBeenLastCalledWith1: (assertion<VitestExtras__Mock.mockFn1<'a, 'ret>>, 'a) => unit =
   "toHaveBeenLastCalledWith"
 
 /** Asserts the mock's last call had 2 arguments */
 @send
 external toHaveBeenLastCalledWith2: (
-  assertion<VitestMock.mockFn2<'a, 'b, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn2<'a, 'b, 'ret>>,
   'a,
   'b,
 ) => unit = "toHaveBeenLastCalledWith"
@@ -183,7 +193,7 @@ external toHaveBeenLastCalledWith2: (
 /** Asserts the mock's last call had 3 arguments */
 @send
 external toHaveBeenLastCalledWith3: (
-  assertion<VitestMock.mockFn3<'a, 'b, 'c, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn3<'a, 'b, 'c, 'ret>>,
   'a,
   'b,
   'c,
@@ -192,7 +202,7 @@ external toHaveBeenLastCalledWith3: (
 /** Asserts the mock's last call had 4 arguments */
 @send
 external toHaveBeenLastCalledWith4: (
-  assertion<VitestMock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
   'a,
   'b,
   'c,
@@ -202,7 +212,7 @@ external toHaveBeenLastCalledWith4: (
 /** Asserts the mock's last call had 5 arguments */
 @send
 external toHaveBeenLastCalledWith5: (
-  assertion<VitestMock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
   'a,
   'b,
   'c,
@@ -212,22 +222,27 @@ external toHaveBeenLastCalledWith5: (
 
 // Aliases
 @send
-external lastCalledWith0: assertion<VitestMock.mockFn0<'ret>> => unit = "lastCalledWith"
+external lastCalledWith0: assertion<VitestExtras__Mock.mockFn0<'ret>> => unit = "lastCalledWith"
 
 @send
-external lastCalledWith1: (assertion<VitestMock.mockFn1<'a, 'ret>>, 'a) => unit = "lastCalledWith"
-
-@send
-external lastCalledWith2: (assertion<VitestMock.mockFn2<'a, 'b, 'ret>>, 'a, 'b) => unit =
+external lastCalledWith1: (assertion<VitestExtras__Mock.mockFn1<'a, 'ret>>, 'a) => unit =
   "lastCalledWith"
 
 @send
-external lastCalledWith3: (assertion<VitestMock.mockFn3<'a, 'b, 'c, 'ret>>, 'a, 'b, 'c) => unit =
+external lastCalledWith2: (assertion<VitestExtras__Mock.mockFn2<'a, 'b, 'ret>>, 'a, 'b) => unit =
   "lastCalledWith"
+
+@send
+external lastCalledWith3: (
+  assertion<VitestExtras__Mock.mockFn3<'a, 'b, 'c, 'ret>>,
+  'a,
+  'b,
+  'c,
+) => unit = "lastCalledWith"
 
 @send
 external lastCalledWith4: (
-  assertion<VitestMock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
   'a,
   'b,
   'c,
@@ -236,7 +251,7 @@ external lastCalledWith4: (
 
 @send
 external lastCalledWith5: (
-  assertion<VitestMock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
   'a,
   'b,
   'c,
@@ -250,13 +265,13 @@ external lastCalledWith5: (
 
 /** Asserts the nth call had no arguments */
 @send
-external toHaveBeenNthCalledWith0: (assertion<VitestMock.mockFn0<'ret>>, int) => unit =
+external toHaveBeenNthCalledWith0: (assertion<VitestExtras__Mock.mockFn0<'ret>>, int) => unit =
   "toHaveBeenNthCalledWith"
 
 /** Asserts the nth call had 1 argument */
 @send
 external toHaveBeenNthCalledWith1: (
-  assertion<VitestMock.mockFn1<'a, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn1<'a, 'ret>>,
   int,
   'a,
 ) => unit = "toHaveBeenNthCalledWith"
@@ -264,7 +279,7 @@ external toHaveBeenNthCalledWith1: (
 /** Asserts the nth call had 2 arguments */
 @send
 external toHaveBeenNthCalledWith2: (
-  assertion<VitestMock.mockFn2<'a, 'b, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn2<'a, 'b, 'ret>>,
   int,
   'a,
   'b,
@@ -273,7 +288,7 @@ external toHaveBeenNthCalledWith2: (
 /** Asserts the nth call had 3 arguments */
 @send
 external toHaveBeenNthCalledWith3: (
-  assertion<VitestMock.mockFn3<'a, 'b, 'c, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn3<'a, 'b, 'c, 'ret>>,
   int,
   'a,
   'b,
@@ -283,7 +298,7 @@ external toHaveBeenNthCalledWith3: (
 /** Asserts the nth call had 4 arguments */
 @send
 external toHaveBeenNthCalledWith4: (
-  assertion<VitestMock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
   int,
   'a,
   'b,
@@ -294,7 +309,7 @@ external toHaveBeenNthCalledWith4: (
 /** Asserts the nth call had 5 arguments */
 @send
 external toHaveBeenNthCalledWith5: (
-  assertion<VitestMock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
   int,
   'a,
   'b,
@@ -305,19 +320,24 @@ external toHaveBeenNthCalledWith5: (
 
 // Aliases
 @send
-external nthCalledWith0: (assertion<VitestMock.mockFn0<'ret>>, int) => unit = "nthCalledWith"
-
-@send
-external nthCalledWith1: (assertion<VitestMock.mockFn1<'a, 'ret>>, int, 'a) => unit =
+external nthCalledWith0: (assertion<VitestExtras__Mock.mockFn0<'ret>>, int) => unit =
   "nthCalledWith"
 
 @send
-external nthCalledWith2: (assertion<VitestMock.mockFn2<'a, 'b, 'ret>>, int, 'a, 'b) => unit =
+external nthCalledWith1: (assertion<VitestExtras__Mock.mockFn1<'a, 'ret>>, int, 'a) => unit =
   "nthCalledWith"
+
+@send
+external nthCalledWith2: (
+  assertion<VitestExtras__Mock.mockFn2<'a, 'b, 'ret>>,
+  int,
+  'a,
+  'b,
+) => unit = "nthCalledWith"
 
 @send
 external nthCalledWith3: (
-  assertion<VitestMock.mockFn3<'a, 'b, 'c, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn3<'a, 'b, 'c, 'ret>>,
   int,
   'a,
   'b,
@@ -326,7 +346,7 @@ external nthCalledWith3: (
 
 @send
 external nthCalledWith4: (
-  assertion<VitestMock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn4<'a, 'b, 'c, 'd, 'ret>>,
   int,
   'a,
   'b,
@@ -336,7 +356,7 @@ external nthCalledWith4: (
 
 @send
 external nthCalledWith5: (
-  assertion<VitestMock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
+  assertion<VitestExtras__Mock.mockFn5<'a, 'b, 'c, 'd, 'e, 'ret>>,
   int,
   'a,
   'b,

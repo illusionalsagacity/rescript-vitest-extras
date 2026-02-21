@@ -4,7 +4,6 @@
  *
  * A labeled checkbox that shows/hides a content section when toggled.
  */
-
 module Toggle = {
   @react.component
   let make = (~label="Show content", ~children=React.null) => {

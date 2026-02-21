@@ -1,14 +1,13 @@
+// =============================================================================
+// Shared Types
+// =============================================================================
+
 /**
  * Vitest Browser Locator API bindings.
  *
  * Provides type-safe bindings for the `@vitest/browser` Locator class, including
  * query methods (getByRole, getByText, etc.), filtering, interaction, and element access.
  */
-
-// =============================================================================
-// Shared Types
-// =============================================================================
-
 /** Opaque type for the Locator object from `@vitest/browser`. */
 type t
 
@@ -65,7 +64,8 @@ external getByText: (t, stringOrRegExp, ~options: locatorFilterOptions=?) => t =
 
 /** Returns a locator for the first element matching the given label text. */
 @send
-external getByLabelText: (t, stringOrRegExp, ~options: locatorFilterOptions=?) => t = "getByLabelText"
+external getByLabelText: (t, stringOrRegExp, ~options: locatorFilterOptions=?) => t =
+  "getByLabelText"
 
 /** Returns a locator for the first element matching the given placeholder text. */
 @send

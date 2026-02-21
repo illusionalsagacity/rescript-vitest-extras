@@ -20,13 +20,13 @@ Add to your `rescript.json`:
 
 ## Modules
 
-### VitestAssert
+### VitestExtras.Assert
 
 Chai-style assert API bindings with ReScript-specific assertions for `option`, `result`, `Null.t`, `Nullable.t`, and `undefined`.
 
 ```rescript
 open Vitest
-module A = VitestAssert
+module A = VitestExtras.Assert
 
 test("equality", _ => {
   A.equal(1, 1)
@@ -73,85 +73,106 @@ test("exceptions", _ => {
 
 All assertions accept an optional `~message` parameter for custom failure messages.
 
-### VitestMock
+### VitestExtras.Mock
 
 Arity-specific mock function types with full access to mock context, implementation control, and return value stubbing.
 
 ```rescript
 open Vitest
-open VitestMock
+open VitestExtras
+
+module M = Mock
 
 describe("mock functions", () => {
   test("create and call mocks", _ => {
     // Create with implementation
-    let add = fnWithImpl2((a, b) => a + b)
-    let fn = add->MockFn2.toFunction
+    let add = M.fnWithImpl2((a, b) => a + b)
+    let fn = add->M.MockFn2.toFunction
 
-    VitestAssert.equal(fn(2, 3), 5)
+    A.equal(fn(2, 3), 5)
   })
 
   test("stub return values", _ => {
-    let mock = fn0()->MockFn0.mockReturnValue(42)
-    let fn = mock->MockFn0.toFunction
+    let mock = M.fn0()->M.MockFn0.mockReturnValue(42)
+    let fn = mock->M.MockFn0.toFunction
 
-    VitestAssert.equal(fn(), 42)
+    A.equal(fn(), 42)
   })
 
   test("access call history", _ => {
-    let mock = fnWithImpl1(x => x * 2)
-    let fn = mock->MockFn1.toFunction
+    let mock = M.fnWithImpl1(x => x * 2)
+    let fn = mock->M.MockFn1.toFunction
 
     let _ = fn(5)
     let _ = fn(10)
 
-    let ctx = mock->MockFn1.mock
-    VitestAssert.Array.lengthOf(ctx.calls, 2)
+    let ctx = mock->M.MockFn1.mock
+    A.Array.lengthOf(ctx.calls, 2)
   })
 
   test("mock implementation once", _ => {
-    let mock = fn0()
-      ->MockFn0.mockReturnValueOnce(1)
-      ->MockFn0.mockReturnValueOnce(2)
-      ->MockFn0.mockReturnValue(999)
-    let fn = mock->MockFn0.toFunction
+    let mock = M.fn0()
+      ->M.MockFn0.mockReturnValueOnce(1)
+      ->M.MockFn0.mockReturnValueOnce(2)
+      ->M.MockFn0.mockReturnValue(999)
+    let fn = mock->M.MockFn0.toFunction
 
-    VitestAssert.equal(fn(), 1)
-    VitestAssert.equal(fn(), 2)
-    VitestAssert.equal(fn(), 999)
+    A.equal(fn(), 1)
+    A.equal(fn(), 2)
+    A.equal(fn(), 999)
   })
 
   test("async mocks", async () => {
-    let mock = fn0()->MockFn0.mockResolvedValue(42)
-    let fn = mock->MockFn0.toFunction
+    let mock = M.fn0()->M.MockFn0.mockResolvedValue(42)
+    let fn = mock->M.MockFn0.toFunction
 
     let result = await fn()
-    VitestAssert.equal(result, 42)
+    A.equal(result, 42)
   })
 })
 ```
 
 Available arities: `mockFn0` through `mockFn5`, each with corresponding `MockFn0` through `MockFn5` modules.
 
-### VitestMockExpect
+### VitestExtras.MockExpect
 
 Expect matchers for mock function assertions.
 
 ```rescript
 open Vitest
-open VitestMock
-open VitestMockExpect
+open VitestExtras
+
+module M = Mock
+module ME = MockExpect
 
 test("mock matchers", _ => {
-  let mock = fnWithImpl1(x => x + 1)
-  let fn = mock->MockFn1.toFunction
+  let mock = M.fnWithImpl1(x => x + 1)
+  let fn = mock->M.MockFn1.toFunction
 
   let _ = fn(5)
 
-  expect(mock)->toHaveBeenCalled
-  expect(mock)->toHaveBeenCalledTimes(1)
-  expect(mock)->toHaveBeenCalledWith(5)
-  expect(mock)->toHaveReturnedWith(6)
+  expect(mock)->ME.toHaveBeenCalled
+  expect(mock)->ME.toHaveBeenCalledTimes(1)
+  expect(mock)->ME.toHaveBeenCalledWith1(5)
+  expect(mock)->ME.toHaveReturnedWith(6)
 })
+```
+
+## Module Organization
+
+This library uses the `VitestExtras__` namespace for internal modules with a public `VitestExtras` entry point that exports all public APIs. You can access modules in two ways:
+
+**Recommended** — via the public `VitestExtras` entry point:
+```rescript
+open VitestExtras
+module A = Assert
+module M = Mock
+```
+
+**Alternatively** — use fully qualified internal names:
+```rescript
+module A = VitestExtras__Assert
+module M = VitestExtras__Mock
 ```
 
 ## Mock Function Types

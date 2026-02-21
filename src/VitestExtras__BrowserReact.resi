@@ -1,3 +1,7 @@
+// =============================================================================
+// Types
+// =============================================================================
+
 /**
  * Vitest Browser React API bindings.
  *
@@ -6,11 +10,6 @@
  * The `renderResult` type extends `LocatorSelectors` with query methods,
  * property accessors, and lifecycle methods.
  */
-
-// =============================================================================
-// Types
-// =============================================================================
-
 /** The result of rendering a component. Extends Locator with query methods. */
 type renderResult
 
@@ -42,54 +41,56 @@ type renderHookResult<'result> = {
 @send
 external getByRole: (
   renderResult,
-  VitestBrowserLocator.ariaRole,
-  ~options: VitestBrowserLocator.locatorByRoleOptions=?,
-) => VitestBrowserLocator.t = "getByRole"
+  VitestExtras__BrowserLocator.ariaRole,
+  ~options: VitestExtras__BrowserLocator.locatorByRoleOptions=?,
+) => VitestExtras__BrowserLocator.t = "getByRole"
 
 /** Returns a locator for the first element matching the given text content. */
 @send
 external getByText: (
   renderResult,
-  VitestBrowserLocator.stringOrRegExp,
-  ~options: VitestBrowserLocator.locatorFilterOptions=?,
-) => VitestBrowserLocator.t = "getByText"
+  VitestExtras__BrowserLocator.stringOrRegExp,
+  ~options: VitestExtras__BrowserLocator.locatorFilterOptions=?,
+) => VitestExtras__BrowserLocator.t = "getByText"
 
 /** Returns a locator for the first element matching the given label text. */
 @send
 external getByLabelText: (
   renderResult,
-  VitestBrowserLocator.stringOrRegExp,
-  ~options: VitestBrowserLocator.locatorFilterOptions=?,
-) => VitestBrowserLocator.t = "getByLabelText"
+  VitestExtras__BrowserLocator.stringOrRegExp,
+  ~options: VitestExtras__BrowserLocator.locatorFilterOptions=?,
+) => VitestExtras__BrowserLocator.t = "getByLabelText"
 
 /** Returns a locator for the first element matching the given placeholder text. */
 @send
 external getByPlaceholder: (
   renderResult,
-  VitestBrowserLocator.stringOrRegExp,
-  ~options: VitestBrowserLocator.locatorFilterOptions=?,
-) => VitestBrowserLocator.t = "getByPlaceholder"
+  VitestExtras__BrowserLocator.stringOrRegExp,
+  ~options: VitestExtras__BrowserLocator.locatorFilterOptions=?,
+) => VitestExtras__BrowserLocator.t = "getByPlaceholder"
 
 /** Returns a locator for the first element matching the given alt text. */
 @send
 external getByAltText: (
   renderResult,
-  VitestBrowserLocator.stringOrRegExp,
-  ~options: VitestBrowserLocator.locatorFilterOptions=?,
-) => VitestBrowserLocator.t = "getByAltText"
+  VitestExtras__BrowserLocator.stringOrRegExp,
+  ~options: VitestExtras__BrowserLocator.locatorFilterOptions=?,
+) => VitestExtras__BrowserLocator.t = "getByAltText"
 
 /** Returns a locator for the first element matching the given `data-testid` attribute. */
 @send
-external getByTestId: (renderResult, VitestBrowserLocator.stringOrRegExp) => VitestBrowserLocator.t =
-  "getByTestId"
+external getByTestId: (
+  renderResult,
+  VitestExtras__BrowserLocator.stringOrRegExp,
+) => VitestExtras__BrowserLocator.t = "getByTestId"
 
 /** Returns a locator for the first element matching the given title attribute. */
 @send
 external getByTitle: (
   renderResult,
-  VitestBrowserLocator.stringOrRegExp,
-  ~options: VitestBrowserLocator.locatorFilterOptions=?,
-) => VitestBrowserLocator.t = "getByTitle"
+  VitestExtras__BrowserLocator.stringOrRegExp,
+  ~options: VitestExtras__BrowserLocator.locatorFilterOptions=?,
+) => VitestExtras__BrowserLocator.t = "getByTitle"
 
 // =============================================================================
 // renderResult — Property Accessors
@@ -105,7 +106,7 @@ external baseElement: renderResult => Dom.element = "baseElement"
 
 /** The root Locator for the rendered output. */
 @get
-external locator: renderResult => VitestBrowserLocator.t = "locator"
+external locator: renderResult => VitestExtras__BrowserLocator.t = "locator"
 
 // =============================================================================
 // renderResult — Lifecycle Methods
@@ -127,8 +128,8 @@ external asFragment: renderResult => Dom.element = "asFragment"
 // renderResult — Escape Hatch
 // =============================================================================
 
-/** Casts a `renderResult` to a `VitestBrowserLocator.t` for use with Locator APIs. */
-external toLocator: renderResult => VitestBrowserLocator.t = "%identity"
+/** Casts a `renderResult` to a `VitestExtras__BrowserLocator.t` for use with Locator APIs. */
+external toLocator: renderResult => VitestExtras__BrowserLocator.t = "%identity"
 
 // =============================================================================
 // renderHookResult — Methods (nested to avoid name collisions)

@@ -3,51 +3,50 @@
  *
  * Wraps the `page` singleton from `vitest/browser` with ergonomic ReScript
  * convenience functions. Each query method mirrors the corresponding method
- * on `VitestBrowserLocator.t` but operates on the top-level page context.
+ * on `VitestExtras__BrowserLocator.t` but operates on the top-level page context.
  */
-
-// =============================================================================
+/** Returns a locator for the first element matching the given ARIA role. */
+let // =============================================================================
 // Query Methods
 // =============================================================================
 
-/** Returns a locator for the first element matching the given ARIA role. */
-let getByRole: (
-  ~options: VitestBrowserLocator.locatorByRoleOptions=?,
-  VitestBrowserLocator.ariaRole,
-) => VitestBrowserLocator.t
+getByRole: (
+  ~options: VitestExtras__BrowserLocator.locatorByRoleOptions=?,
+  VitestExtras__BrowserLocator.ariaRole,
+) => VitestExtras__BrowserLocator.t
 
 /** Returns a locator for the first element matching the given text content. */
 let getByText: (
-  ~options: VitestBrowserLocator.locatorFilterOptions=?,
-  VitestBrowserLocator.stringOrRegExp,
-) => VitestBrowserLocator.t
+  ~options: VitestExtras__BrowserLocator.locatorFilterOptions=?,
+  VitestExtras__BrowserLocator.stringOrRegExp,
+) => VitestExtras__BrowserLocator.t
 
 /** Returns a locator for the first element matching the given label text. */
 let getByLabelText: (
-  ~options: VitestBrowserLocator.locatorFilterOptions=?,
-  VitestBrowserLocator.stringOrRegExp,
-) => VitestBrowserLocator.t
+  ~options: VitestExtras__BrowserLocator.locatorFilterOptions=?,
+  VitestExtras__BrowserLocator.stringOrRegExp,
+) => VitestExtras__BrowserLocator.t
 
 /** Returns a locator for the first element matching the given placeholder text. */
 let getByPlaceholder: (
-  ~options: VitestBrowserLocator.locatorFilterOptions=?,
-  VitestBrowserLocator.stringOrRegExp,
-) => VitestBrowserLocator.t
+  ~options: VitestExtras__BrowserLocator.locatorFilterOptions=?,
+  VitestExtras__BrowserLocator.stringOrRegExp,
+) => VitestExtras__BrowserLocator.t
 
 /** Returns a locator for the first element matching the given alt text. */
 let getByAltText: (
-  ~options: VitestBrowserLocator.locatorFilterOptions=?,
-  VitestBrowserLocator.stringOrRegExp,
-) => VitestBrowserLocator.t
+  ~options: VitestExtras__BrowserLocator.locatorFilterOptions=?,
+  VitestExtras__BrowserLocator.stringOrRegExp,
+) => VitestExtras__BrowserLocator.t
 
 /** Returns a locator for the first element matching the given `data-testid` attribute. */
-let getByTestId: VitestBrowserLocator.stringOrRegExp => VitestBrowserLocator.t
+let getByTestId: VitestExtras__BrowserLocator.stringOrRegExp => VitestExtras__BrowserLocator.t
 
 /** Returns a locator for the first element matching the given title attribute. */
 let getByTitle: (
-  ~options: VitestBrowserLocator.locatorFilterOptions=?,
-  VitestBrowserLocator.stringOrRegExp,
-) => VitestBrowserLocator.t
+  ~options: VitestExtras__BrowserLocator.locatorFilterOptions=?,
+  VitestExtras__BrowserLocator.stringOrRegExp,
+) => VitestExtras__BrowserLocator.t
 
 // =============================================================================
 // Additional Methods
@@ -60,4 +59,4 @@ let viewport: (int, int) => promise<unit>
 let screenshot: (~options: {..}=?) => promise<string>
 
 /** Wraps a DOM element in a Locator. */
-let elementLocator: Dom.element => VitestBrowserLocator.t
+let elementLocator: Dom.element => VitestExtras__BrowserLocator.t

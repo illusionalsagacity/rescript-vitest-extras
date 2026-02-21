@@ -4,7 +4,6 @@
  * A text input field with an "Add" button that accumulates todo items in a list.
  * The button is disabled when the input is empty.
  */
-
 module TodoInput = {
   @react.component
   let make = () => {
@@ -19,7 +18,7 @@ module TodoInput = {
     }
 
     let handleKeyDown = e => {
-      if (e->ReactEvent.Keyboard.key) == "Enter" {
+      if e->ReactEvent.Keyboard.key == "Enter" {
         handleAdd()
       }
     }
@@ -39,9 +38,11 @@ module TodoInput = {
         {React.string("Add")}
       </button>
       <ul>
-        {todos->Array.mapWithIndex((todo, i) => {
+        {todos
+        ->Array.mapWithIndex((todo, i) => {
           <li key={i->Int.toString}> {React.string(todo)} </li>
-        })->React.array}
+        })
+        ->React.array}
       </ul>
     </div>
   }

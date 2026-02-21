@@ -4,13 +4,12 @@
  * These bindings wrap Vitest's chai-based assert API with ergonomic ReScript types.
  * Organized into submodules for type-specific assertions.
  */
-
-// ============================================================================
+/** Asserts that `expression` is truthy. */
+let // ============================================================================
 // Core Assertions
 // ============================================================================
 
-/** Asserts that `expression` is truthy. */
-let assert_: (~message: string=?, 'a) => unit
+assert_: (~message: string=?, 'a) => unit
 
 /** Force an assertion failure with an optional message. */
 let fail: (~message: string=?) => unit

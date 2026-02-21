@@ -4,7 +4,6 @@
  *
  * Renders increment/decrement buttons and displays the current count.
  */
-
 module Counter = {
   @react.component
   let make = () => {
@@ -12,12 +11,8 @@ module Counter = {
 
     <div>
       <p> {`Count: ${count->Int.toString}`->React.string} </p>
-      <button onClick={_ => setCount(prev => prev + 1)}>
-        {React.string("Increment")}
-      </button>
-      <button onClick={_ => setCount(prev => prev - 1)}>
-        {React.string("Decrement")}
-      </button>
+      <button onClick={_ => setCount(prev => prev + 1)}> {React.string("Increment")} </button>
+      <button onClick={_ => setCount(prev => prev - 1)}> {React.string("Decrement")} </button>
     </div>
   }
 }

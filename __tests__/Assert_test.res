@@ -1,394 +1,638 @@
 open Vitest
-
 // Use our Assert module, not Vitest.Assert
-module A = VitestAssert
+module Assert = VitestExtras.Assert
 
 describe("Assert", () => {
   describe("Core assertions", () => {
-    test("assert_", _ => {
-      A.assert_(true)
-      A.assert_(1)
-      A.assert_("non-empty")
-    })
+    test(
+      "assert_",
+      _ => {
+        Assert.assert_(true)
+        Assert.assert_(1)
+        Assert.assert_("non-empty")
+      },
+    )
   })
 
   describe("Equality assertions", () => {
-    test("equal", _ => {
-      A.equal(1, 1)
-    })
+    test(
+      "equal",
+      _ => {
+        Assert.equal(1, 1)
+      },
+    )
 
-    test("notEqual", _ => {
-      A.notEqual(1, 2)
-    })
+    test(
+      "notEqual",
+      _ => {
+        Assert.notEqual(1, 2)
+      },
+    )
 
-    test("strictEqual", _ => {
-      A.strictEqual("hello", "hello")
-    })
+    test(
+      "strictEqual",
+      _ => {
+        Assert.strictEqual("hello", "hello")
+      },
+    )
 
-    test("notStrictEqual", _ => {
-      A.notStrictEqual("hello", "world")
-    })
+    test(
+      "notStrictEqual",
+      _ => {
+        Assert.notStrictEqual("hello", "world")
+      },
+    )
 
-    test("deepEqual", _ => {
-      A.deepEqual([1, 2, 3], [1, 2, 3])
-    })
+    test(
+      "deepEqual",
+      _ => {
+        Assert.deepEqual([1, 2, 3], [1, 2, 3])
+      },
+    )
 
-    test("notDeepEqual", _ => {
-      A.notDeepEqual([1, 2, 3], [1, 2, 4])
-    })
+    test(
+      "notDeepEqual",
+      _ => {
+        Assert.notDeepEqual([1, 2, 3], [1, 2, 4])
+      },
+    )
   })
 
   describe("Numeric comparisons", () => {
-    test("isAbove", _ => {
-      A.isAbove(10.0, 5.0)
-    })
+    test(
+      "isAbove",
+      _ => {
+        Assert.isAbove(10.0, 5.0)
+      },
+    )
 
-    test("isAtLeast", _ => {
-      A.isAtLeast(5.0, 5.0)
-    })
+    test(
+      "isAtLeast",
+      _ => {
+        Assert.isAtLeast(5.0, 5.0)
+      },
+    )
 
-    test("isBelow", _ => {
-      A.isBelow(3.0, 5.0)
-    })
+    test(
+      "isBelow",
+      _ => {
+        Assert.isBelow(3.0, 5.0)
+      },
+    )
 
-    test("isAtMost", _ => {
-      A.isAtMost(5.0, 5.0)
-    })
+    test(
+      "isAtMost",
+      _ => {
+        Assert.isAtMost(5.0, 5.0)
+      },
+    )
 
-    test("closeTo", _ => {
-      A.closeTo(1.5, 1.0, ~delta=1.0)
-    })
+    test(
+      "closeTo",
+      _ => {
+        Assert.closeTo(1.5, 1.0, ~delta=1.0)
+      },
+    )
 
-    test("approximately (alias for closeTo)", _ => {
-      A.approximately(1.5, 1.0, ~delta=1.0)
-    })
+    test(
+      "approximately (alias for closeTo)",
+      _ => {
+        Assert.approximately(1.5, 1.0, ~delta=1.0)
+      },
+    )
   })
 
   describe("Boolean assertions", () => {
-    test("isTrue", _ => {
-      A.isTrue(true)
-    })
+    test(
+      "isTrue",
+      _ => {
+        Assert.isTrue(true)
+      },
+    )
 
-    test("isNotTrue", _ => {
-      A.isNotTrue(false)
-    })
+    test(
+      "isNotTrue",
+      _ => {
+        Assert.isNotTrue(false)
+      },
+    )
 
-    test("isFalse", _ => {
-      A.isFalse(false)
-    })
+    test(
+      "isFalse",
+      _ => {
+        Assert.isFalse(false)
+      },
+    )
 
-    test("isNotFalse", _ => {
-      A.isNotFalse(true)
-    })
+    test(
+      "isNotFalse",
+      _ => {
+        Assert.isNotFalse(true)
+      },
+    )
   })
 
   describe("NaN and Finite assertions", () => {
-    test("isNaN", _ => {
-      A.isNaN(Float.Constants.nan)
-    })
+    test(
+      "isNaN",
+      _ => {
+        Assert.isNaN(Float.Constants.nan)
+      },
+    )
 
-    test("isNotNaN", _ => {
-      A.isNotNaN(42.0)
-    })
+    test(
+      "isNotNaN",
+      _ => {
+        Assert.isNotNaN(42.0)
+      },
+    )
 
-    test("isFinite", _ => {
-      A.isFinite(42.0)
-    })
+    test(
+      "isFinite",
+      _ => {
+        Assert.isFinite(42.0)
+      },
+    )
   })
 
   describe("Null assertions", () => {
-    test("Null.isNull confirms null", _ => {
-      let nullValue: Null.t<int> = Null.null
-      A.Null.isNull(nullValue)
-    })
+    test(
+      "Null.isNull confirms null",
+      _ => {
+        let nullValue: Null.t<int> = Null.null
+        Assert.Null.isNull(nullValue)
+      },
+    )
 
-    test("Null.isNotNull confirms not null", _ => {
-      let value: Null.t<int> = Null.make(42)
-      A.Null.isNotNull(value)
-    })
+    test(
+      "Null.isNotNull confirms not null",
+      _ => {
+        let value: Null.t<int> = Null.make(42)
+        Assert.Null.isNotNull(value)
+      },
+    )
   })
 
   describe("Undefined assertions", () => {
-    test("Undefined.isUndefined confirms undefined", _ => {
-      let value: undefined<int> = Obj.magic(Nullable.undefined)
-      A.Undefined.isUndefined(value)
-    })
+    test(
+      "Undefined.isUndefined confirms undefined",
+      _ => {
+        let value: undefined<int> = Obj.magic(Nullable.undefined)
+        Assert.Undefined.isUndefined(value)
+      },
+    )
 
-    test("Undefined.isDefined confirms defined", _ => {
-      let value: undefined<int> = Obj.magic(42)
-      A.Undefined.isDefined(value)
-    })
+    test(
+      "Undefined.isDefined confirms defined",
+      _ => {
+        let value: undefined<int> = Obj.magic(42)
+        Assert.Undefined.isDefined(value)
+      },
+    )
   })
 
   describe("Nullable assertions", () => {
-    test("Nullable.isNull confirms null", _ => {
-      let value: Nullable.t<int> = Nullable.null
-      A.Nullable.isNull(value)
-    })
+    test(
+      "Nullable.isNull confirms null",
+      _ => {
+        let value: Nullable.t<int> = Nullable.null
+        Assert.Nullable.isNull(value)
+      },
+    )
 
-    test("Nullable.isNotNull confirms not null", _ => {
-      let value: Nullable.t<int> = Nullable.make(42)
-      A.Nullable.isNotNull(value)
-    })
+    test(
+      "Nullable.isNotNull confirms not null",
+      _ => {
+        let value: Nullable.t<int> = Nullable.make(42)
+        Assert.Nullable.isNotNull(value)
+      },
+    )
 
-    test("Nullable.isUndefined confirms undefined", _ => {
-      let value: Nullable.t<int> = Nullable.undefined
-      A.Nullable.isUndefined(value)
-    })
+    test(
+      "Nullable.isUndefined confirms undefined",
+      _ => {
+        let value: Nullable.t<int> = Nullable.undefined
+        Assert.Nullable.isUndefined(value)
+      },
+    )
 
-    test("Nullable.isDefined confirms defined", _ => {
-      let value: Nullable.t<int> = Nullable.make(42)
-      A.Nullable.isDefined(value)
-    })
+    test(
+      "Nullable.isDefined confirms defined",
+      _ => {
+        let value: Nullable.t<int> = Nullable.make(42)
+        Assert.Nullable.isDefined(value)
+      },
+    )
 
-    test("Nullable.exists confirms value exists", _ => {
-      let value: Nullable.t<string> = Nullable.make("hello")
-      A.Nullable.exists(value)
-    })
+    test(
+      "Nullable.exists confirms value exists",
+      _ => {
+        let value: Nullable.t<string> = Nullable.make("hello")
+        Assert.Nullable.exists(value)
+      },
+    )
 
-    test("Nullable.notExists confirms null", _ => {
-      let value: Nullable.t<int> = Nullable.null
-      A.Nullable.notExists(value)
-    })
+    test(
+      "Nullable.notExists confirms null",
+      _ => {
+        let value: Nullable.t<int> = Nullable.null
+        Assert.Nullable.notExists(value)
+      },
+    )
 
-    test("Nullable.notExists confirms undefined", _ => {
-      let value: Nullable.t<int> = Nullable.undefined
-      A.Nullable.notExists(value)
-    })
+    test(
+      "Nullable.notExists confirms undefined",
+      _ => {
+        let value: Nullable.t<int> = Nullable.undefined
+        Assert.Nullable.notExists(value)
+      },
+    )
   })
 
   describe("Array assertions", () => {
-    test("Array.isEmpty", _ => {
-      A.Array.isEmpty([])
-    })
+    test(
+      "Array.isEmpty",
+      _ => {
+        Assert.Array.isEmpty([])
+      },
+    )
 
-    test("Array.isNotEmpty", _ => {
-      A.Array.isNotEmpty([1])
-    })
+    test(
+      "Array.isNotEmpty",
+      _ => {
+        Assert.Array.isNotEmpty([1])
+      },
+    )
 
-    test("Array.lengthOf", _ => {
-      A.Array.lengthOf([1, 2, 3], 3)
-    })
+    test(
+      "Array.lengthOf",
+      _ => {
+        Assert.Array.lengthOf([1, 2, 3], 3)
+      },
+    )
 
-    test("Array.includes", _ => {
-      A.Array.includes([1, 2, 3], 2)
-    })
+    test(
+      "Array.includes",
+      _ => {
+        Assert.Array.includes([1, 2, 3], 2)
+      },
+    )
 
-    test("Array.notIncludes", _ => {
-      A.Array.notIncludes([1, 2, 3], 4)
-    })
+    test(
+      "Array.notIncludes",
+      _ => {
+        Assert.Array.notIncludes([1, 2, 3], 4)
+      },
+    )
 
-    test("Array.sameMembers", _ => {
-      A.Array.sameMembers([1, 2, 3], [3, 1, 2])
-    })
+    test(
+      "Array.sameMembers",
+      _ => {
+        Assert.Array.sameMembers([1, 2, 3], [3, 1, 2])
+      },
+    )
 
-    test("Array.notSameMembers", _ => {
-      A.Array.notSameMembers([1, 2, 3], [1, 2, 4])
-    })
+    test(
+      "Array.notSameMembers",
+      _ => {
+        Assert.Array.notSameMembers([1, 2, 3], [1, 2, 4])
+      },
+    )
 
-    test("Array.sameDeepMembers", _ => {
-      A.Array.sameDeepMembers([{"a": 1}, {"a": 2}], [{"a": 2}, {"a": 1}])
-    })
+    test(
+      "Array.sameDeepMembers",
+      _ => {
+        Assert.Array.sameDeepMembers([{"a": 1}, {"a": 2}], [{"a": 2}, {"a": 1}])
+      },
+    )
 
-    test("Array.notSameDeepMembers", _ => {
-      A.Array.notSameDeepMembers([{"a": 1}], [{"a": 2}])
-    })
+    test(
+      "Array.notSameDeepMembers",
+      _ => {
+        Assert.Array.notSameDeepMembers([{"a": 1}], [{"a": 2}])
+      },
+    )
 
-    test("Array.sameOrderedMembers", _ => {
-      A.Array.sameOrderedMembers([1, 2, 3], [1, 2, 3])
-    })
+    test(
+      "Array.sameOrderedMembers",
+      _ => {
+        Assert.Array.sameOrderedMembers([1, 2, 3], [1, 2, 3])
+      },
+    )
 
-    test("Array.notSameOrderedMembers", _ => {
-      A.Array.notSameOrderedMembers([1, 2, 3], [3, 2, 1])
-    })
+    test(
+      "Array.notSameOrderedMembers",
+      _ => {
+        Assert.Array.notSameOrderedMembers([1, 2, 3], [3, 2, 1])
+      },
+    )
 
-    test("Array.sameDeepOrderedMembers", _ => {
-      A.Array.sameDeepOrderedMembers([{"a": 1}, {"a": 2}], [{"a": 1}, {"a": 2}])
-    })
+    test(
+      "Array.sameDeepOrderedMembers",
+      _ => {
+        Assert.Array.sameDeepOrderedMembers([{"a": 1}, {"a": 2}], [{"a": 1}, {"a": 2}])
+      },
+    )
 
-    test("Array.notSameDeepOrderedMembers", _ => {
-      A.Array.notSameDeepOrderedMembers([{"a": 1}, {"a": 2}], [{"a": 2}, {"a": 1}])
-    })
+    test(
+      "Array.notSameDeepOrderedMembers",
+      _ => {
+        Assert.Array.notSameDeepOrderedMembers([{"a": 1}, {"a": 2}], [{"a": 2}, {"a": 1}])
+      },
+    )
 
-    test("Array.includeMembers", _ => {
-      A.Array.includeMembers([1, 2, 3, 4], [2, 3])
-    })
+    test(
+      "Array.includeMembers",
+      _ => {
+        Assert.Array.includeMembers([1, 2, 3, 4], [2, 3])
+      },
+    )
 
-    test("Array.notIncludeMembers", _ => {
-      A.Array.notIncludeMembers([1, 2, 3], [4, 5])
-    })
+    test(
+      "Array.notIncludeMembers",
+      _ => {
+        Assert.Array.notIncludeMembers([1, 2, 3], [4, 5])
+      },
+    )
 
-    test("Array.includeDeepMembers", _ => {
-      A.Array.includeDeepMembers([{"a": 1}, {"a": 2}, {"a": 3}], [{"a": 2}])
-    })
+    test(
+      "Array.includeDeepMembers",
+      _ => {
+        Assert.Array.includeDeepMembers([{"a": 1}, {"a": 2}, {"a": 3}], [{"a": 2}])
+      },
+    )
 
-    test("Array.notIncludeDeepMembers", _ => {
-      A.Array.notIncludeDeepMembers([{"a": 1}], [{"a": 2}])
-    })
+    test(
+      "Array.notIncludeDeepMembers",
+      _ => {
+        Assert.Array.notIncludeDeepMembers([{"a": 1}], [{"a": 2}])
+      },
+    )
 
-    test("Array.includeOrderedMembers", _ => {
-      A.Array.includeOrderedMembers([1, 2, 3, 4], [1, 2])
-    })
+    test(
+      "Array.includeOrderedMembers",
+      _ => {
+        Assert.Array.includeOrderedMembers([1, 2, 3, 4], [1, 2])
+      },
+    )
 
-    test("Array.notIncludeOrderedMembers", _ => {
-      A.Array.notIncludeOrderedMembers([1, 2, 3, 4], [3, 2])
-    })
+    test(
+      "Array.notIncludeOrderedMembers",
+      _ => {
+        Assert.Array.notIncludeOrderedMembers([1, 2, 3, 4], [3, 2])
+      },
+    )
 
-    test("Array.includeDeepOrderedMembers", _ => {
-      A.Array.includeDeepOrderedMembers([{"a": 1}, {"a": 2}, {"a": 3}], [{"a": 1}, {"a": 2}])
-    })
+    test(
+      "Array.includeDeepOrderedMembers",
+      _ => {
+        Assert.Array.includeDeepOrderedMembers([{"a": 1}, {"a": 2}, {"a": 3}], [{"a": 1}, {"a": 2}])
+      },
+    )
 
-    test("Array.notIncludeDeepOrderedMembers", _ => {
-      A.Array.notIncludeDeepOrderedMembers([{"a": 1}, {"a": 2}], [{"a": 2}, {"a": 1}])
-    })
+    test(
+      "Array.notIncludeDeepOrderedMembers",
+      _ => {
+        Assert.Array.notIncludeDeepOrderedMembers([{"a": 1}, {"a": 2}], [{"a": 2}, {"a": 1}])
+      },
+    )
   })
 
   describe("String assertions", () => {
-    test("String.includes", _ => {
-      A.String.includes("hello world", "world")
-    })
+    test(
+      "String.includes",
+      _ => {
+        Assert.String.includes("hello world", "world")
+      },
+    )
 
-    test("String.notIncludes", _ => {
-      A.String.notIncludes("hello world", "foo")
-    })
+    test(
+      "String.notIncludes",
+      _ => {
+        Assert.String.notIncludes("hello world", "foo")
+      },
+    )
 
-    test("String.isEmpty", _ => {
-      A.String.isEmpty("")
-    })
+    test(
+      "String.isEmpty",
+      _ => {
+        Assert.String.isEmpty("")
+      },
+    )
 
-    test("String.isNotEmpty", _ => {
-      A.String.isNotEmpty("hello")
-    })
+    test(
+      "String.isNotEmpty",
+      _ => {
+        Assert.String.isNotEmpty("hello")
+      },
+    )
 
-    test("String.lengthOf", _ => {
-      A.String.lengthOf("hello", 5)
-    })
+    test(
+      "String.lengthOf",
+      _ => {
+        Assert.String.lengthOf("hello", 5)
+      },
+    )
   })
 
   describe("Regex matching", () => {
-    test("match_", _ => {
-      A.match_("hello123", /\d+/)
-    })
+    test(
+      "match_",
+      _ => {
+        Assert.match_("hello123", /\d+/)
+      },
+    )
 
-    test("notMatch", _ => {
-      A.notMatch("hello", /\d+/)
-    })
+    test(
+      "notMatch",
+      _ => {
+        Assert.notMatch("hello", /\d+/)
+      },
+    )
   })
 
   describe("oneOf", () => {
-    test("value is in list", _ => {
-      A.oneOf(2, [1, 2, 3])
-    })
+    test(
+      "value is in list",
+      _ => {
+        Assert.oneOf(2, [1, 2, 3])
+      },
+    )
   })
 
   describe("Exception assertions", () => {
-    test("throws", _ => {
-      A.throws(() => JsError.throwWithMessage("test error"))
-    })
+    test(
+      "throws",
+      _ => {
+        Assert.throws(() => JsError.throwWithMessage("test error"))
+      },
+    )
 
-    test("throwsWithMatch", _ => {
-      A.throwsWithMatch(() => JsError.throwWithMessage("test error 123"), /\d+/)
-    })
+    test(
+      "throwsWithMatch",
+      _ => {
+        Assert.throwsWithMatch(() => JsError.throwWithMessage("test error 123"), /\d+/)
+      },
+    )
 
-    test("doesNotThrow", _ => {
-      A.doesNotThrow(() => ())
-    })
+    test(
+      "doesNotThrow",
+      _ => {
+        Assert.doesNotThrow(() => ())
+      },
+    )
   })
 
   describe("Object state assertions", () => {
-    test("isExtensible", _ => {
-      let obj = {"foo": 1}
-      A.isExtensible(obj)
-    })
+    test(
+      "isExtensible",
+      _ => {
+        let obj = {"foo": 1}
+        Assert.isExtensible(obj)
+      },
+    )
 
-    test("isNotExtensible", _ => {
-      let obj = {"foo": 1}
-      let frozen = Object.freeze(obj)
-      A.isNotExtensible(frozen)
-    })
+    test(
+      "isNotExtensible",
+      _ => {
+        let obj = {"foo": 1}
+        let frozen = Object.freeze(obj)
+        Assert.isNotExtensible(frozen)
+      },
+    )
 
-    test("isSealed", _ => {
-      let obj = {"foo": 1}
-      let sealed = Object.seal(obj)
-      A.isSealed(sealed)
-    })
+    test(
+      "isSealed",
+      _ => {
+        let obj = {"foo": 1}
+        let sealed = Object.seal(obj)
+        Assert.isSealed(sealed)
+      },
+    )
 
-    test("isNotSealed", _ => {
-      let obj = {"foo": 1}
-      A.isNotSealed(obj)
-    })
+    test(
+      "isNotSealed",
+      _ => {
+        let obj = {"foo": 1}
+        Assert.isNotSealed(obj)
+      },
+    )
 
-    test("isFrozen", _ => {
-      let obj = {"foo": 1}
-      let frozen = Object.freeze(obj)
-      A.isFrozen(frozen)
-    })
+    test(
+      "isFrozen",
+      _ => {
+        let obj = {"foo": 1}
+        let frozen = Object.freeze(obj)
+        Assert.isFrozen(frozen)
+      },
+    )
 
-    test("isNotFrozen", _ => {
-      let obj = {"foo": 1}
-      A.isNotFrozen(obj)
-    })
+    test(
+      "isNotFrozen",
+      _ => {
+        let obj = {"foo": 1}
+        Assert.isNotFrozen(obj)
+      },
+    )
   })
 
   describe("Result assertions", () => {
-    test("Result.isOk confirms Ok", _ => {
-      let result: result<int, string> = Ok(42)
-      A.Result.isOk(result)
-    })
-
-    test("Result.isOk throws on Error", _ => {
-      A.throws(() => {
-        let result: result<int, string> = Error("fail")
-        A.Result.isOk(result)
-      })
-    })
-
-    test("Result.isError confirms Error", _ => {
-      let result: result<int, string> = Error("fail")
-      A.Result.isError(result)
-    })
-
-    test("Result.isError throws on Ok", _ => {
-      A.throws(() => {
+    test(
+      "Result.isOk confirms Ok",
+      _ => {
         let result: result<int, string> = Ok(42)
-        A.Result.isError(result)
-      })
-    })
+        Assert.Result.isOk(result)
+      },
+    )
+
+    test(
+      "Result.isOk throws on Error",
+      _ => {
+        Assert.throws(
+          () => {
+            let result: result<int, string> = Error("fail")
+            Assert.Result.isOk(result)
+          },
+        )
+      },
+    )
+
+    test(
+      "Result.isError confirms Error",
+      _ => {
+        let result: result<int, string> = Error("fail")
+        Assert.Result.isError(result)
+      },
+    )
+
+    test(
+      "Result.isError throws on Ok",
+      _ => {
+        Assert.throws(
+          () => {
+            let result: result<int, string> = Ok(42)
+            Assert.Result.isError(result)
+          },
+        )
+      },
+    )
   })
 
   describe("Option assertions", () => {
-    test("Option.isSome confirms Some", _ => {
-      let opt: option<int> = Some(42)
-      A.Option.isSome(opt)
-    })
-
-    test("Option.isSome throws on None", _ => {
-      A.throws(() => {
-        let opt: option<int> = None
-        A.Option.isSome(opt)
-      })
-    })
-
-    test("Option.isNone confirms None", _ => {
-      let opt: option<int> = None
-      A.Option.isNone(opt)
-    })
-
-    test("Option.isNone throws on Some", _ => {
-      A.throws(() => {
+    test(
+      "Option.isSome confirms Some",
+      _ => {
         let opt: option<int> = Some(42)
-        A.Option.isNone(opt)
-      })
-    })
+        Assert.Option.isSome(opt)
+      },
+    )
+
+    test(
+      "Option.isSome throws on None",
+      _ => {
+        Assert.throws(
+          () => {
+            let opt: option<int> = None
+            Assert.Option.isSome(opt)
+          },
+        )
+      },
+    )
+
+    test(
+      "Option.isNone confirms None",
+      _ => {
+        let opt: option<int> = None
+        Assert.Option.isNone(opt)
+      },
+    )
+
+    test(
+      "Option.isNone throws on Some",
+      _ => {
+        Assert.throws(
+          () => {
+            let opt: option<int> = Some(42)
+            Assert.Option.isNone(opt)
+          },
+        )
+      },
+    )
   })
 
   describe("fail", () => {
-    test("fail throws", _ => {
-      A.throws(() => A.fail())
-    })
+    test(
+      "fail throws",
+      _ => {
+        Assert.throws(() => Assert.fail())
+      },
+    )
 
-    test("fail throws with message", _ => {
-      A.throwsWithMatch(() => A.fail(~message="custom message"), /custom message/)
-    })
+    test(
+      "fail throws with message",
+      _ => {
+        Assert.throwsWithMatch(() => Assert.fail(~message="custom message"), /custom message/)
+      },
+    )
   })
 })

@@ -6,7 +6,6 @@
  * re-exported as an `@inline` convenience wrapper that pipes through the global
  * singleton.
  */
-
 /** Abstract type for a UserEvent instance from `vitest/browser`. */
 type t
 
@@ -27,22 +26,27 @@ let setup = () => userEvent->setupBinding
 // =============================================================================
 
 @send
-external clickBinding: (t, VitestBrowserLocator.t, ~options: {..}=?) => promise<unit> = "click"
+external clickBinding: (t, VitestExtras__BrowserLocator.t, ~options: {..}=?) => promise<unit> =
+  "click"
 
 /** Clicks the given element. */
 @inline
 let click = (~options=?, locator) => userEvent->clickBinding(locator, ~options?)
 
 @send
-external dblClickBinding: (t, VitestBrowserLocator.t, ~options: {..}=?) => promise<unit> = "dblClick"
+external dblClickBinding: (t, VitestExtras__BrowserLocator.t, ~options: {..}=?) => promise<unit> =
+  "dblClick"
 
 /** Double-clicks the given element. */
 @inline
 let dblClick = (~options=?, locator) => userEvent->dblClickBinding(locator, ~options?)
 
 @send
-external tripleClickBinding: (t, VitestBrowserLocator.t, ~options: {..}=?) => promise<unit> =
-  "tripleClick"
+external tripleClickBinding: (
+  t,
+  VitestExtras__BrowserLocator.t,
+  ~options: {..}=?,
+) => promise<unit> = "tripleClick"
 
 /** Triple-clicks the given element. */
 @inline
@@ -53,7 +57,7 @@ let tripleClick = (~options=?, locator) => userEvent->tripleClickBinding(locator
 // =============================================================================
 
 @send
-external fillBinding: (t, VitestBrowserLocator.t, string) => promise<unit> = "fill"
+external fillBinding: (t, VitestExtras__BrowserLocator.t, string) => promise<unit> = "fill"
 
 /** Sets the value of an input element. Unlike `type_`, this does not simulate
     individual keystrokes and has no options parameter. */
@@ -61,8 +65,12 @@ external fillBinding: (t, VitestBrowserLocator.t, string) => promise<unit> = "fi
 let fill = (locator, text) => userEvent->fillBinding(locator, text)
 
 @send
-external typeBinding: (t, VitestBrowserLocator.t, string, ~options: {..}=?) => promise<unit> =
-  "type"
+external typeBinding: (
+  t,
+  VitestExtras__BrowserLocator.t,
+  string,
+  ~options: {..}=?,
+) => promise<unit> = "type"
 
 /** Types text into the given element character by character, simulating real keyboard input.
     Named `type_` because `type` is a reserved word in ReScript. */
@@ -70,7 +78,8 @@ external typeBinding: (t, VitestBrowserLocator.t, string, ~options: {..}=?) => p
 let type_ = (~options=?, locator, text) => userEvent->typeBinding(locator, text, ~options?)
 
 @send
-external clearBinding: (t, VitestBrowserLocator.t, ~options: {..}=?) => promise<unit> = "clear"
+external clearBinding: (t, VitestExtras__BrowserLocator.t, ~options: {..}=?) => promise<unit> =
+  "clear"
 
 /** Clears the value of the given input element. */
 @inline
@@ -101,14 +110,16 @@ let tab = (~options=?) => userEvent->tabBinding(~options?)
 // =============================================================================
 
 @send
-external hoverBinding: (t, VitestBrowserLocator.t, ~options: {..}=?) => promise<unit> = "hover"
+external hoverBinding: (t, VitestExtras__BrowserLocator.t, ~options: {..}=?) => promise<unit> =
+  "hover"
 
 /** Hovers over the given element. */
 @inline
 let hover = (~options=?, locator) => userEvent->hoverBinding(locator, ~options?)
 
 @send
-external unhoverBinding: (t, VitestBrowserLocator.t, ~options: {..}=?) => promise<unit> = "unhover"
+external unhoverBinding: (t, VitestExtras__BrowserLocator.t, ~options: {..}=?) => promise<unit> =
+  "unhover"
 
 /** Moves the pointer away from the given element. */
 @inline
@@ -119,8 +130,12 @@ let unhover = (~options=?, locator) => userEvent->unhoverBinding(locator, ~optio
 // =============================================================================
 
 @send
-external selectOptionsBinding: (t, VitestBrowserLocator.t, 'a, ~options: {..}=?) => promise<unit> =
-  "selectOptions"
+external selectOptionsBinding: (
+  t,
+  VitestExtras__BrowserLocator.t,
+  'a,
+  ~options: {..}=?,
+) => promise<unit> = "selectOptions"
 
 /** Selects the given option(s) in a `<select>` element. The `values` parameter is
     intentionally polymorphic to support `string`, `array<string>`, `Locator`,
@@ -134,14 +149,13 @@ let selectOptions = (~options=?, locator, values) =>
 // =============================================================================
 
 @send
-external uploadBinding: (t, VitestBrowserLocator.t, 'a, ~options: {..}=?) => promise<unit> =
+external uploadBinding: (t, VitestExtras__BrowserLocator.t, 'a, ~options: {..}=?) => promise<unit> =
   "upload"
 
 /** Uploads file(s) to an input element. The `files` parameter is intentionally
     polymorphic to support `string`, `array<string>`, `File`, or `array<File>`. */
 @inline
-let upload = (~options=?, locator, files) =>
-  userEvent->uploadBinding(locator, files, ~options?)
+let upload = (~options=?, locator, files) => userEvent->uploadBinding(locator, files, ~options?)
 
 // =============================================================================
 // Drag and Drop
@@ -150,8 +164,8 @@ let upload = (~options=?, locator, files) =>
 @send
 external dragAndDropBinding: (
   t,
-  VitestBrowserLocator.t,
-  VitestBrowserLocator.t,
+  VitestExtras__BrowserLocator.t,
+  VitestExtras__BrowserLocator.t,
   ~options: {..}=?,
 ) => promise<unit> = "dragAndDrop"
 
