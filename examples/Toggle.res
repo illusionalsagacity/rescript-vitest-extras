@@ -22,7 +22,7 @@ module Toggle = {
         />
         {React.string(label)}
       </label>
-      {isOpen ? <div> {children} </div> : React.null}
+      <div style={{display: isOpen ? "block" : "none"}}> {children} </div>
     </div>
   }
 }

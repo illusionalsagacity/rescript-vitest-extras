@@ -1,4 +1,5 @@
 import { defineConfig } from "vitest/config";
+import { playwright } from "@vitest/browser-playwright";
 
 export default defineConfig({
   test: {
@@ -9,6 +10,12 @@ export default defineConfig({
       : ["default"],
     coverage: {
       exclude: ["*.res", "*.resi", "lib/**", "vitest.config.mjs"],
+    },
+    browser: {
+      provider: playwright(),
+      enabled: true,
+      // at least one instance is required
+      instances: [{ browser: "chromium" }],
     },
   },
 });
