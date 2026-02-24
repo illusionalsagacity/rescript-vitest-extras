@@ -22,5 +22,8 @@ lib
 .prototools
 .changeset
 .claude
+__browser_tests__
+examples
 __tests__
-vitest.config.ts
+vitest.config.mjs
+vitest.browser.config.mjs
