@@ -10,7 +10,7 @@ export default defineConfig({
     browser: {
       enabled: true,
       provider: playwright(),
-      headless: false,
+      headless: true,
       instances: [{ browser: "chromium" }],
     },
     reporters: process.env.GITHUB_ACTIONS

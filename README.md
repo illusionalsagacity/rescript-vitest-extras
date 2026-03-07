@@ -158,21 +158,186 @@ test("mock matchers", _ => {
 })
 ```
 
-## Module Organization
+## Browser Mode
 
-This library uses the `VitestExtras__` namespace for internal modules with a public `VitestExtras` entry point that exports all public APIs. You can access modules in two ways:
+Bindings for [Vitest Browser Mode](https://vitest.dev/guide/browser/), including page queries, locator interactions, user events, DOM assertions, and React component rendering via `vitest-browser-react`.
 
-**Recommended** — via the public `VitestExtras` entry point:
+The browser mode modules are:
+
+| Module             | Description                                                                     |
+| ------------------ | ------------------------------------------------------------------------------- |
+| `BrowserPage`      | Page-level queries (`getByRole`, `getByText`, etc.), viewport, and screenshots  |
+| `BrowserLocator`   | Locator chaining, filtering, interactions (`click`, `fill`), and element access |
+| `BrowserUserEvent` | User interaction simulation (`click`, `type_`, `keyboard`, `hover`, clipboard)  |
+| `BrowserExpect`    | DOM assertions via `expect.element()` with automatic retry                      |
+| `BrowserReact`     | React component rendering and hook testing via `vitest-browser-react`           |
+
+### Rendering a component and asserting on its output
+
 ```rescript
+open Vitest
 open VitestExtras
-module A = Assert
-module M = Mock
+
+describe("Counter", () => {
+  testAsync("renders Counter with buttons and count text", async _ => {
+    let screen = await BrowserReact.render(<Counter.Counter />)
+
+    let incrementBtn = screen->BrowserReact.getByRole(
+      "button",
+      ~options={name: BrowserLocator.String("Increment")},
+    )
+    let countText = screen->BrowserReact.getByText(BrowserLocator.String("Count: 0"))
+
+    await BrowserExpect.element(incrementBtn)->BrowserExpect.toBeVisible
+    await BrowserExpect.element(incrementBtn)->BrowserExpect.toBeEnabled
+    await BrowserExpect.element(countText)->BrowserExpect.toHaveTextContent(
+      BrowserLocator.String("Count: 0"),
+    )
+  })
+})
 ```
 
-**Alternatively** — use fully qualified internal names:
+### Form interaction and user events
+
 ```rescript
-module A = VitestExtras__Assert
-module M = VitestExtras__Mock
+testAsync("fills input, submits, and asserts result", async _ => {
+  let screen = await BrowserReact.render(<TodoInput.TodoInput />)
+
+  let input = screen->BrowserReact.getByPlaceholder(BrowserLocator.String("Enter a todo..."))
+  let addBtn = screen->BrowserReact.getByRole(
+    "button",
+    ~options={name: BrowserLocator.String("Add")},
+  )
+
+  // type_ simulates individual keystrokes
+  await BrowserUserEvent.type_(input, "Learn ReScript")
+  await BrowserUserEvent.clear(input)
+
+  // fill sets the value directly
+  await BrowserUserEvent.fill(input, "Write tests")
+  await BrowserUserEvent.click(addBtn)
+
+  let todoItem = screen->BrowserReact.getByText(BrowserLocator.String("Write tests"))
+  await BrowserExpect.element(todoItem)->BrowserExpect.toBeVisible
+
+  // Submit via keyboard
+  await BrowserUserEvent.fill(input, "Another task")
+  await BrowserUserEvent.keyboard("{Enter}")
+
+  let keyboardItem = screen->BrowserReact.getByText(BrowserLocator.String("Another task"))
+  await BrowserExpect.element(keyboardItem)->BrowserExpect.toBeInTheDocument
+})
+```
+
+### Locator chaining and filtering
+
+```rescript
+testAsync("chains queries on nested elements", async _ => {
+  let screen = await BrowserReact.render(<TodoInput.TodoInput />)
+
+  // ... add items ...
+
+  // Chain locator queries on the list
+  let list = screen->BrowserReact.getByRole("list")
+  let items = list->BrowserLocator.getByRole("listitem")
+  let firstItem = items->BrowserLocator.first
+  let lastItem = items->BrowserLocator.last
+  let _secondItem = items->BrowserLocator.nth(1)
+
+  await BrowserExpect.element(firstItem)->BrowserExpect.toBeVisible
+  await BrowserExpect.element(lastItem)->BrowserExpect.toBeVisible
+
+  // Filter by text content
+  let filtered = items->BrowserLocator.filter({hasText: BrowserLocator.String("Second")})
+  await BrowserExpect.element(filtered)->BrowserExpect.toBeInTheDocument
+
+  // Access underlying DOM elements
+  let _el = firstItem->BrowserLocator.element       // Dom.element (throws if no match)
+  let _maybeEl = firstItem->BrowserLocator.query     // option<Dom.element>
+})
+```
+
+### DOM assertions with negation and custom timeout
+
+```rescript
+testAsync("toggles checkbox state", async _ => {
+  let screen = await BrowserReact.render(
+    <Toggle.Toggle label="Show details">
+      {React.string("Hidden content")}
+    </Toggle.Toggle>,
+  )
+
+  let checkbox = screen->BrowserReact.getByRole("checkbox")
+  let content = screen->BrowserReact.getByText(BrowserLocator.String("Hidden content"))
+
+  // Initially unchecked
+  await BrowserExpect.element(checkbox)->BrowserExpect.not->BrowserExpect.toBeChecked
+  await BrowserExpect.element(checkbox)->BrowserExpect.toBeEnabled
+
+  // Content is hidden
+  await BrowserExpect.element(content)->BrowserExpect.not->BrowserExpect.toBeVisible
+
+  // Click to check
+  await BrowserUserEvent.click(checkbox)
+
+  // Retry with custom timeout
+  await BrowserExpect.element(checkbox, ~options={timeout: 5000})->BrowserExpect.toBeChecked
+
+  // Content is now visible
+  await BrowserExpect.element(content)->BrowserExpect.toBeVisible
+})
+```
+
+### Page-level queries, viewport, and screenshots
+
+```rescript
+testAsync("queries via BrowserPage singleton", async _ => {
+  let _ = await BrowserReact.render(<Counter.Counter />)
+
+  // BrowserPage queries the entire document
+  let button = BrowserPage.getByRole(
+    "button",
+    ~options={name: BrowserLocator.String("Increment")},
+  )
+  let countText = BrowserPage.getByText(BrowserLocator.String("Count: 0"))
+
+  await BrowserExpect.element(button)->BrowserExpect.toBeInTheDocument
+  await BrowserExpect.element(countText)->BrowserExpect.toBeVisible
+
+  // Viewport and screenshots
+  await BrowserPage.viewport(1280, 720)
+  let _path = await BrowserPage.screenshot()
+})
+```
+
+### Testing hooks
+
+```rescript
+testAsync("useCounter hook", async _ => {
+  let result = await BrowserReact.renderHook(() => UseCounter.useCounter())
+
+  VitestExtras.Assert.equal(result.result.current.count, 0)
+
+  await BrowserReact.HookResult.act(result, async () => {
+    result.result.current.increment()
+  })
+
+  VitestExtras.Assert.equal(result.result.current.count, 1)
+})
+```
+
+### Pure rendering (no auto-cleanup)
+
+```rescript
+testAsync("renders with manual cleanup", async _ => {
+  BrowserReact.Pure.configure({reactStrictMode: true})
+
+  let screen = await BrowserReact.Pure.render(<Counter.Counter />)
+  let countText = screen->BrowserReact.getByText(BrowserLocator.String("Count: 0"))
+  await BrowserExpect.element(countText)->BrowserExpect.toBeInTheDocument
+
+  await BrowserReact.Pure.cleanup()
+})
 ```
 
 ## Mock Function Types
