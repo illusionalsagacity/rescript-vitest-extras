@@ -1,6 +1,13 @@
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 import { playwright } from "@vitest/browser-playwright";
+
+// Coverage globs are matched against absolute module paths before source-map remapping.
+const rescriptSources = `${fileURLToPath(new URL("./src", import.meta.url))}/**/*.res`.replaceAll(
+  "\\",
+  "/",
+);
 
 function rescriptSource() {
   return {
@@ -36,7 +43,8 @@ export default defineConfig({
       ? ["default", "github-actions"]
       : ["default"],
     coverage: {
-      exclude: ["*.res", "*.resi", "lib/**", "vitest.config.mjs"],
+      include: [rescriptSources],
+      excludeAfterRemap: true,
     },
     browser: {
       provider: playwright(),

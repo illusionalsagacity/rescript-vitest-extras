@@ -15,5 +15,7 @@
 node_modules
 
 *.res.mjs
+*.res.mjs.map
 coverage
 lib
+test-results
