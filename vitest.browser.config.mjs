@@ -1,24 +1,64 @@
+import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { playwright } from "@vitest/browser-playwright";
 import { defineConfig } from "vitest/config";
 
+// Coverage globs are matched against absolute module paths before source-map remapping.
+const rescriptSources = `${fileURLToPath(new URL("./src", import.meta.url))}/**/*.res`.replaceAll(
+  "\\",
+  "/",
+);
+
+function rescriptSource() {
+  return {
+    name: "rescript-source",
+    enforce: "pre",
+    resolveId(id) {
+      if (id.endsWith(".res")) return id;
+    },
+    async load(id) {
+      if (!id.endsWith(".res")) return null;
+      const code = await readFile(`${id}.mjs`, "utf8");
+      const map = JSON.parse(await readFile(`${id}.mjs.map`, "utf8"));
+      return { code, map };
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [rescriptSource(), react()],
   test: {
-    include: ["__browser_tests__/**/*.res.mjs"],
+    include: ["__browser_tests__/**/*_test.res"],
     exclude: ["node_modules", "lib"],
+    coverage: {
+      include: [rescriptSources],
+      excludeAfterRemap: true,
+      // Fail if coverage no longer remaps into the included ReScript sources.
+      thresholds: { statements: 1 },
+    },
     browser: {
       enabled: true,
       provider: playwright(),
       headless: true,
       instances: [{ browser: "chromium" }],
+      screenshotDirectory: "test-results/screenshots",
     },
     reporters: process.env.GITHUB_ACTIONS
       ? ["default", "github-actions"]
       : ["default"],
   },
   optimizeDeps: {
-    include: ["react", "react-dom", "react-dom/client", "react/jsx-runtime"],
+    include: [
+      "react",
+      "react-dom",
+      "react-dom/client",
+      "react/jsx-runtime",
+      "rescript-vitest/src/Vitest.res.mjs",
+      "@rescript/runtime/lib/es6/Stdlib_Option.mjs",
+      "@rescript/runtime/lib/es6/Primitive_option.mjs",
+      "@rescript/runtime/lib/es6/Belt_Array.mjs",
+    ],
     exclude: ["@vitest/browser/context", "vitest-browser-react"],
   },
 });

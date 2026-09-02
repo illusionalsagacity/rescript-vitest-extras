@@ -28,7 +28,12 @@
     "in-source": true
   },
   "jsx": {
-    "version": 4,
-    "mode": "automatic"
+    "version": 4
+  },
+  "sourceMap": {
+    "enabled": "always",
+    "mode": "linked",
+    "sourcesContent": true,
+    "sourceRoot": ""
   }
 }
