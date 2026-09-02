@@ -26,5 +26,8 @@ jobs:
       - name: Build ReScript
         run: yarn res:build
 
-      - name: Run tests
-        run: yarn test --run --coverage
+      - name: Run unit coverage
+        run: yarn coverage
+
+      - name: Run browser coverage
+        run: yarn coverage:browser

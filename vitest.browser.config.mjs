@@ -34,6 +34,8 @@ export default defineConfig({
     coverage: {
       include: [rescriptSources],
       excludeAfterRemap: true,
+      // Fail if coverage no longer remaps into the included ReScript sources.
+      thresholds: { statements: 1 },
     },
     browser: {
       enabled: true,
